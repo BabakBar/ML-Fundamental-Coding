@@ -1,0 +1,9 @@
+wins <- 0
+while (wins <= 10){
+    if (wins < 10){
+        print("does not make playoffs")
+    } else {
+        print ("makes playoffs")
+    }
+    wins <- wins + 1
+}
