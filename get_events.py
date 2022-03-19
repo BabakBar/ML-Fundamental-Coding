@@ -22,10 +22,6 @@ task_name = input("Enter the task name (e.g. Microsoft-Windows-ReadyBoost/Operat
 events_num = int(input("Enter the number of logs"))
 result = get_events(task_name, events_num)
 
-def main(): 
-    pass 
-
 
 if __name__ == "__main__": 
     print(result)
-input("Press enter to proceed...")
