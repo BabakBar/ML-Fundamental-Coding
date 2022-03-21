@@ -1,1 +1,5 @@
-age = 2
+age = int(input("Your current age"))
+months = 12*(70 - age)
+weeks = 52*(70 - age)
+days = 365*(70 - age)
+answer = (f"You have {days} days, {weeks} weeks, and {months} months left")
