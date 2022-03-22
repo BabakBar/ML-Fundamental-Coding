@@ -1,4 +1,4 @@
-number = int(input("Put your Number"))
+number = 13
 if number % 2 == 0:
     print("Number is Even")
 else:
