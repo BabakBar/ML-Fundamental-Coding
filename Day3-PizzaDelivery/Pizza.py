@@ -4,9 +4,7 @@ add_pepperoni = input("Do you want pepperoni? Y or N ")
 extra_cheese = input("Do you want extra cheese? Y or N ")
 bill = 0
 
-size = "M"
-add_pepperoni = "Y"
-extra_cheese = "Y"
+
 if size == "S":
     bill = 15
     if add_pepperoni == "Y":
