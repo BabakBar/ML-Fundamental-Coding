@@ -1,4 +1,5 @@
-numbers = (1, 100)
+numbers = [1, 100]
+
 for num in range(numbers):
     if num % 3 == 0:
         print("Fizz")
@@ -6,3 +7,5 @@ for num in range(numbers):
         print("Buzz")
     if num % 3 == 0 and num % 5 == 0:
         print("FizzBuzz")
+    else:
+        print(num)
