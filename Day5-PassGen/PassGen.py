@@ -13,13 +13,13 @@ nr_numbers = int(input(f"How many numbers would you like?\n"))
 #e.g. 4 letter, 2 symbol, 2 number = g^2jk8&P
 password = ""
 def pass_gen(nr_letters, nr_symbols, nr_numbers):
-    for i in range(letters):
-        password.append(random.choice(nr_letters))
-    for i in range(symbols):
-        password.append(random.choice(nr_symbols))
-    for i in range(numbers):
-        password.append(random.choice(nr_numbers))
+    for i in range(nr_letters):
+        password.append(random.choice(letters))
+    for i in range(nr_symbols):
+        password.append(random.choice(symbols))
+    for i in range(nr_numbers):
+        password.append(random.choice(numbers))
     random.shuffle(password)
-    return ''.join(password)
+    return (password)
 
 print(password)
