@@ -21,5 +21,5 @@ for i in range(1, nr_symbols+1):
 for i in range(1, nr_numbers+1):
     password.append(random.choice(numbers))
 
-yourpass = random.shuffle(password)
-print(f"Your password is: {''.join(yourpass)}")
+random.shuffle(password)
+print(f"Your password is: {''.join(password)}")
