@@ -80,4 +80,13 @@ SELECT SalesOrderID,
 FROM Sales.SalesOrderDetail;
 ```
 
-
+write an SQL to report all customers who never order anything.
+Using sub-query and NOT IN clause
+```
+SELECT name AS Customers 
+FROM Customers 
+WHERE Customers.id NOT IN
+(
+    SELECT customerID FROM Orders
+);
+```
