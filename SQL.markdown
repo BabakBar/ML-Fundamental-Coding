@@ -47,4 +47,37 @@ STR : converts a numeric value to a varchar.
 SELECT ProductID,  '$' + STR(ListPrice) AS Price
 FROM Production.Product;
 ```
+### NULL
+
+MySQL uses three-valued logic -- TRUE, FALSE and UNKNOWN. Anything compared to NULL evaluates to the third value: UNKNOWN. That “anything” includes NULL itself! That’s why MySQL provides the IS NULL and IS NOT NULL operators to specifically check for NULL.
+
+LeetCode Ex: 
+```
+SELECT name
+FROM Customer
+WHERE referee_id != 2 OR referee_id IS NULL;
+```
+
+If there are only two arguments, COALESCE behaves like ISNULL. However, with more than two arguments, COALESCE can be used as an alternative to a multipart CASE expression using ISNULL.
+
+```
+SELECT EmployeeID,
+      COALESCE(HourlyRate * 40,
+                WeeklySalary,
+                Commission * SalesQty) AS WeeklyEarnings
+FROM HR.Wages;
+```
+
+The NULLIF function allows you to return NULL under certain conditions. This function has useful applications in areas such as data cleansing, when you wish to replace blank or placeholder characters with NULL.
+
+NULLIF takes two arguments and returns NULL if they're equivalent. If they aren't equal, NULLIF returns the first argument.
+
+```
+SELECT SalesOrderID,
+      ProductID,
+      UnitPrice,
+      NULLIF(UnitPriceDiscount, 0) AS Discount
+FROM Sales.SalesOrderDetail;
+```
+
 
