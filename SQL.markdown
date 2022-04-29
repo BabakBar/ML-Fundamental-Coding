@@ -205,3 +205,42 @@ Mic answer:
 SELECT CustomerID, COALESCE(EmailAddress, Phone) AS PrimaryContact
 FROM SalesLT.Customer;
 ```
+## Sort & Filter
+
+```
+SELECT ProductCategoryID AS Category, ProductName
+FROM Production.Product
+ORDER BY Category ASC, Price DESC;
+```
+
+### Limit the sorted results
+
+TOP will let you specify how many rows to return, either as a positive integer or as a percentage of all qualifying rows. The number of rows can be specified as a constant or as an expression. TOP is most frequently used with an ORDER BY, but can be used with unordered data.
+Ex: retrieve only the 10 most expensive products
+```
+SELECT TOP 10 Name, ListPrice
+FROM Production.Product
+ORDER BY ListPrice DESC;
+```
+TOP can be used without ORDER BY, but in that case, there is no way to predict which rows will be returned. 
+by adding the WITH TIES option to the TOP clause, you will see that more rows qualify for inclusion in the top 10 most expensive products:
+SELECT TOP 10 WITH TIES Name, ListPrice
+
+Using PERCENT
+```
+SELECT TOP 10 PERCENT Name, ListPrice
+FROM SalesLT.Product
+ORDER BY ListPrice DESC;
+```
+
+## Page results & OFFSET-FETCH
+
+An extension to the ORDER BY clause called OFFSET-FETCH enables you to return only a range of the rows selected by your query. It adds the ability to supply a starting point (an offset) and a value to specify how many rows you would like to return (a fetch value).
+
+```
+SELECT ProductID, ProductName, ListPrice
+FROM Production.Product
+ORDER BY ListPrice DESC 
+OFFSET 10 ROWS --Skip 10 rows
+FETCH NEXT 10 ROWS ONLY; --Get the next 10
+```
