@@ -253,3 +253,14 @@ ORDER BY ListPrice DESC
 OFFSET 10 ROWS --Skip 10 rows
 FETCH NEXT 10 ROWS ONLY; --Get the next 10
 ```
+
+## JOINs
+
+```
+SELECT p.ProductID, m.Name AS Model, p.Name AS Product
+FROM SalesLT.Product AS p
+JOIN SalesLT.ProductModel AS m
+    ON p.ProductModelID = m.ProductModelID
+ORDER BY p.ProductID;
+```
+
