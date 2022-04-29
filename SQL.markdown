@@ -31,6 +31,15 @@ FROM salary_data
 GROUP BY location;
 ```
 
+Use of like
+
+```
+SELECT Name, ListPrice
+FROM SalesLT.Product
+WHERE Name LIKE '%mountain%';
+```
+The % wildcard represents any string of 0 or more characters, so the results include products with the word "mountain" anywhere in their name
+
 ## Work with data types
 
 conversion CAST, CONVERT have a TRY_CONVERT variant that returns NULL for incompatible values.
