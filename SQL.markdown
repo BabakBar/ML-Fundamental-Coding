@@ -14,6 +14,23 @@ ID ProductName Markup
 680 HL Road Frame - Black, 58(FR-R92B-58) 372.19
 706 HL Road Frame - Red, 58(FR-R92R-58) 372.19
 
+```
+SELECT id_num, location
+FROM salary_data
+WHERE location IN(‘Boston’, ‘Denver’);
+```
+BETWEEN = Selects the values that are within a given range. Values can be numbers, texts, or dates. begin & end are inclusive
+
+WHERE column_name BETWEEN value1 AND value2
+
+DISTINCT = Used in conjunction with the SELECT clause ,removes duplicate rows from the result set.
+
+```
+SELECT location, COUNT(id_num)
+FROM salary_data
+GROUP BY location;
+```
+
 ## Work with data types
 
 conversion CAST, CONVERT have a TRY_CONVERT variant that returns NULL for incompatible values.
@@ -61,6 +78,15 @@ STR : converts a numeric value to a varchar.
 SELECT ProductID,  '$' + STR(ListPrice) AS Price
 FROM Production.Product;
 ```
+Challenge:
+Retrieve a list of sales order revisions
+The SalesLT.SalesOrderHeader table contains records of sales orders. You have been asked to retrieve data for a report that shows:
+The sales order number and revision number in the format () – for example SO71774 (2).
+The order date converted to ANSI standard 102 format (yyyy.mm.dd – for example 2015.01.31).
+```
+SELECT SalesOrderNumber + ' (' + STR(RevisionNumber, 1) + ')' AS OrderRevision,   CONVERT(nvarchar(30), OrderDate, 102) AS OrderDateFROM SalesLT.SalesOrderHeader;
+```
+
 ### NULL
 
 MySQL uses three-valued logic -- TRUE, FALSE and UNKNOWN. Anything compared to NULL evaluates to the third value: UNKNOWN. That “anything” includes NULL itself! That’s why MySQL provides the IS NULL and IS NOT NULL operators to specifically check for NULL.
@@ -71,7 +97,15 @@ SELECT name
 FROM Customer
 WHERE referee_id != 2 OR referee_id IS NULL;
 ```
-
+```
+SELECT Name, ISNULL(TRY_CAST(Size AS Integer),0) AS NumericSize
+FROM SalesLT.Product;
+```
+The ISNULL function replaces NULL values with a specified literal value. Sometimes, you may want to achieve the opposite result by replacing an explicit value with NULL. To do this, you can use the NULLLIF function.
+```
+SELECT Name, NULLIF(Color, 'Multi') AS SingleColor
+FROM SalesLT.Product;
+```
 If there are only two arguments, COALESCE behaves like ISNULL. However, with more than two arguments, COALESCE can be used as an alternative to a multipart CASE expression using ISNULL.
 
 ```
@@ -94,6 +128,14 @@ SELECT SalesOrderID,
 FROM Sales.SalesOrderDetail;
 ```
 
+In some scenarios, you might want to compare multiple columns and find the first one that isn't NULL. For example, suppose you want to track the status of a product's availability based on the dates recorded when it was first offered for sale or removed from sale. A product that is currently available will have a SellStartDate, but the SellEndDate value will be NULL. When a product is no longer sold, a date is entered in its SellEndDate column. To find the first non-NULL column, you can use the COALESCE function
+find the first non-NULL date for product selling status.
+
+```
+SELECT Name, COALESCE(SellEndDate, SellStartDate) AS StatusLastUpdated
+FROM SalesLT.Product;
+```
+
 write an SQL to report all customers who never order anything.
 Using sub-query and NOT IN clause
 ```
@@ -103,4 +145,26 @@ WHERE Customers.id NOT IN
 (
     SELECT customerID FROM Orders
 );
+```
+
+### Use CASE to compare values
+
+```
+SELECT Name,    
+  CASE        
+    WHEN SellEndDate IS NULL THEN 'Currently for sale'        
+    ELSE 'No longer available'    
+  END AS SalesStatus
+FROM SalesLT.Product;
+```
+```
+SELECT Name,    
+  CASE Size        
+    WHEN 'S' THEN 'Small'        
+    WHEN 'M' THEN 'Medium'        
+    WHEN 'L' THEN 'Large'        
+    WHEN 'XL' THENCAS 'Extra-Large'        
+    ELSE ISNULL(Size, 'n/a')    
+  END AS ProductSize
+FROM SalesLT.Product; 
 ```
