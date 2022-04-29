@@ -60,6 +60,8 @@ FROM SalesLT.Product;
 ```
 the numeric Size values are converted successfully to integers, but that non-numeric sizes are returned as NULL.
 
+Use TRY_CONVERT to convert the char to an integer. If the conversion fails, NULL will be returned.
+
 
 PARSE and TRY_PARSE:
 convert formatted strings that represent numeric or date/time values.
@@ -158,6 +160,7 @@ Retrieve customer contact names with middle names if known:
 ```
 SELECT FirstName + ' ' + ISNULL(MiddleName + ' ', '') + LastName AS CustomerNameFROM SalesLT.Customer;
 ```
+SELECT ISNULL(Cellphone, 'None') AS Cellphone FROM Sales.Customer;
 
 ### Use CASE to compare values
 
@@ -180,6 +183,17 @@ SELECT Name,
   END AS ProductSize
 FROM SalesLT.Product; 
 ```
+
+create a query that returns a list of sales order IDs and order dates with a column named ShippingStatus that contains the text Shipped for orders with a known ship date, and Awaiting Shipment for orders with no ship date.
+```
+SELECT SalesOrderID, OrderDate,    
+  CASE        
+    WHEN ShipDate IS NULL THEN 'Awaiting Shipment'        
+    ELSE 'Shipped'    
+  END AS ShippingStatus
+FROM SalesLT.SalesOrderHeader;
+```
+
 Retrieve primary contact details:
 
 my answer:
