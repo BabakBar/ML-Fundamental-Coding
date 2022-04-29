@@ -32,6 +32,17 @@ Result
 ```
 SELECT CAST(ProductID AS varchar(5)) + ': ' + Name AS ProductNameFROM SalesLT.Product; 
 ```
+```
+SELECT CONVERT(varchar(5), ProductID) + ': ' + Name AS ProductName
+FROM SalesLT.Product; 
+```
+Note that the results of using CONVERT are the same as for CAST. The CAST function is an ANSI standard part of the SQL language that is available in most database systems, while CONVERT is a SQL Server specific function.
+```
+SELECT Name, TRY_CAST(Size AS Integer) AS NumericSize
+FROM SalesLT.Product;
+```
+the numeric Size values are converted successfully to integers, but that non-numeric sizes are returned as NULL.
+
 
 PARSE and TRY_PARSE:
 convert formatted strings that represent numeric or date/time values.
