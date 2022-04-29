@@ -29,6 +29,9 @@ Result
     | 2002-06-01T00:00:00.0000000 | Jun 1 2002 12:00AM | 6/1/2002 |
     | 2002-06-01T00:00:00.0000000 | Jun 1 2002 12:00AM | 6/1/2002 | 
              
+```
+SELECT CAST(ProductID AS varchar(5)) + ': ' + Name AS ProductNameFROM SalesLT.Product; 
+```
 
 PARSE and TRY_PARSE:
 convert formatted strings that represent numeric or date/time values.
