@@ -136,6 +136,13 @@ SELECT Name, COALESCE(SellEndDate, SellStartDate) AS StatusLastUpdated
 FROM SalesLT.Product;
 ```
 
+If email is not NULL, the email address is returned. If email is NULL, the phone is returned.
+
+```
+SELECT CustomerID, COALESCE(EmailAddress, Phone) AS PrimaryContact
+FROM SalesLT.Customer;
+```
+
 write an SQL to report all customers who never order anything.
 Using sub-query and NOT IN clause
 ```
@@ -145,6 +152,11 @@ WHERE Customers.id NOT IN
 (
     SELECT customerID FROM Orders
 );
+```
+
+Retrieve customer contact names with middle names if known:
+```
+SELECT FirstName + ' ' + ISNULL(MiddleName + ' ', '') + LastName AS CustomerNameFROM SalesLT.Customer;
 ```
 
 ### Use CASE to compare values
@@ -163,8 +175,19 @@ SELECT Name,
     WHEN 'S' THEN 'Small'        
     WHEN 'M' THEN 'Medium'        
     WHEN 'L' THEN 'Large'        
-    WHEN 'XL' THENCAS 'Extra-Large'        
+    WHEN 'XL' THEN 'Extra-Large'        
     ELSE ISNULL(Size, 'n/a')    
   END AS ProductSize
 FROM SalesLT.Product; 
+```
+Retrieve primary contact details:
+
+my answer:
+```
+SELECT CustomerID,        CASE         WHEN EmailAddress IS NULL THEN Phone              ELSE EmailAddress        END AS PrimaryContactFROM SalesLT.Customer;
+```
+Mic answer:
+```
+SELECT CustomerID, COALESCE(EmailAddress, Phone) AS PrimaryContact
+FROM SalesLT.Customer;
 ```
