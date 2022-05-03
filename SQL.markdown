@@ -264,3 +264,25 @@ JOIN SalesLT.ProductModel AS m
 ORDER BY p.ProductID;
 ```
 
+A few points when writing your queries:
+
+Each question must be answered with a single SQL query.
+RIGHT JOIN is not supported. Use LEFT JOIN instead.
+FULL OUTER JOIN is not supported.
+TOP is not supported. Use LIMIT at the end of the query instead.
+The CONCAT function is not supported. Use || instead.
+Most date functions such as NOW and DATE_FORMAT are not supported. Treat dates as text instead.
+ILIKE is not supported. Using LIKE will be case insensitive.
+EXTRACT is not supported.
+
+how many brands starting with A have fewer than 2 items?
+```
+SELECT COUNT(*) AS Count
+FROM SalesLT.Product AS p
+
+
+SELECT i.brand
+From item AS i
+JOIN purchase_item AS p
+	ON i.id = p.id
+WHERE brand LIKE '%A&';
