@@ -286,4 +286,3 @@ From item AS i
 JOIN purchase_item AS p
 	ON i.id = p.id
 WHERE brand LIKE '%A&';
-
